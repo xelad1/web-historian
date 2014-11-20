@@ -3,6 +3,7 @@ var path = require('path');
 var _ = require('underscore');
 var httpRequest = require ("http-request");
 var buf = require("buffer");
+var http = require("http");
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -29,13 +30,10 @@ exports.initialize = function(pathsObj){
 
 exports.urlList = urlList = {};
 
+
 exports.readListOfUrls = function(){
-  fs.readFile(paths.list, 'utf8', function(err, data) {
-      if (err){
-        throw new error;
-      }
-      urlList.list= data
-    });
+  var data = fs.readFileSync(paths.list, 'utf8');
+  exports.urlList.list = data.split("\n");
 };
 
 exports.isUrlInList = function(url){
@@ -46,13 +44,26 @@ exports.isUrlInList = function(url){
   }
 };
 
-exports.addUrlToList = function(){
-
+exports.addUrlToList = function(url){
+  fs.appendFile(paths.list, url.substring(1) + "\n", function(err) {
+    if(err) {throw new err};
+  });
 };
 
-exports.isURLArchived = function(){
-};
+exports.isURLArchived = function(localPath){
 
-exports.downloadUrls = function(){
+ var response = fs.existsSync(localPath);
+ return response;
+
+}
+
+exports.downloadUrls = function(localPath){
+ // http.get({
+ //  host: "2.bp.blogspot.com",
+ //  path: "/_IR8qT_UKjOI/TT2P3qleU9I/AAAAAAAAA3I/beckWSLh3nk/s1600/clown.jpg" },
+ //  function(res) {
+ //    var stream = fs.createWriteStream("clown.jpg");
+ //    res.pipe(stream);
+ //  });
 
 };

@@ -3,14 +3,14 @@ var handler = require("./request-handler");
 var _ = require("underscore");
 var httpRequest = require ("http-request");
 var js = require('jquery')(require("jsdom").jsdom().parentWindow);
-
+var archive = require('../helpers/archive-helpers');
 
 var port = 8080;
 var ip = "127.0.0.1";
 
-var createIt = function () {
-http.createServer(handler.handleRequest).listen(port, ip).listen(port, ip);
+var server = http.createServer(handler.handleRequest)
 
 console.log("Listening on http://" + ip + ":" + port);
 
-};
+server.listen(port, ip);
+

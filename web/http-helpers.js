@@ -15,6 +15,19 @@ exports.headers = headers = {
 
 exports.serveAssets = function(res, asset, callback) {
 
+  var validExtensions = {
+    ".html" : "text/html",
+    ".js": "application/javascript",
+    ".css": "text/css",
+    ".txt": "text/plain",
+    ".jpg": "image/jpeg",
+    ".gif": "image/gif",
+    ".png": "image/png"
+  };
+
+   var ext = path.extname(asset);
+   headers["Content-Type"] = validExtensions[ext] || validExtensions[".html"]
+
     callback(asset, function(err, data) {
       if (err){
         throw new error;
@@ -36,10 +49,6 @@ exports.collectData = function(req, callback){
   });
 };
 
-// exports.getFile = function(asset, res, contentType) {
-//   var contents = fs.readFile(asset, 'utf8');
-//   res.writeHead(200, headers);
-//   res.end(contents);
-// };
+
 
 // As you progress, keep thinking about what helper functions you can put here!

@@ -14,12 +14,15 @@ var js = require('jquery')(require("jsdom").jsdom().parentWindow);
       archive.readListOfUrls();
 
       if (req.url === '/') {
-        var indexPath = archive.paths.siteAssets + '/index.html';
-        httpHelp.serveAssets(res, indexPath, fs.readFile);
+        var localPath = archive.paths.siteAssets + '/index.html';
+        httpHelp.serveAssets(res, localPath, fs.readFile);
+      } else if (req.url === '/styles.css') {
+        var localPath = archive.paths.siteAssets + '/styles.css';
+        httpHelp.serveAssets(res, localPath, fs.readFile);
       } else {
-        indexPath = archive.paths.archivedSites +  req.url;
+        localPath = archive.paths.archivedSites +  req.url;
         if(archive.isUrlInList(req.url)) {
-          httpHelp.serveAssets(res, indexPath, fs.readFile);
+          httpHelp.serveAssets(res, localPath, fs.readFile);
         } else {
           res.writeHead(404, headers);
           res.end();
@@ -27,11 +30,11 @@ var js = require('jquery')(require("jsdom").jsdom().parentWindow);
       }
     },
     'POST' : function(req, res) {
-      fs.appendFile(archive.paths.list, "\n" + req.url, 'utf8', urlArray.join("\n"), function (err) {
-        if (err) throw err;
-        console.log('The "data to append" was appended to file!');
-      });
-      fs.writeFile(archive.paths.list + req.url)
+      // fs.appendFile(archive.paths.list, "\n" + req.url, 'utf8', urlArray.join("\n"), function (err) {
+      //   if (err) throw err;
+      //   console.log('The "data to append" was appended to file!');
+      // });
+      // fs.writeFile(archive.paths.list + req.url)
 
     },
     'OPTIONS' : function(req, res) {
