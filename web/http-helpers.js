@@ -3,6 +3,7 @@ var fs = require('fs');
 var archive = require('../helpers/archive-helpers');
 var _ = require("underscore");
 var httpRequest = require ("http-request");
+var url = require('url');
 
 exports.headers = headers = {
   "access-control-allow-origin": "*",
@@ -13,35 +14,16 @@ exports.headers = headers = {
 };
 
 exports.serveAssets = function(res, asset, callback) {
-  // Write some code here that helps serve up your static files!
-  // // asset as file path
-    var ext = path.extname(asset); // take path, figure out the extension --> .html
-    var validExtensions = {
-      ".html" : "text/html",
-      ".js": "application/javascript",
-      ".css": "text/css"
-    };
-    // var contentType = validExtensions[ext];
-    // console.log("Serving file: " + asset);
+
     callback(asset, function(err, data) {
       if (err){
         throw new error;
-        console.log('data');
       }
-        res.writeHead(200, headers);
-        // debug;
-        //
-
-        res.write(data);
-        res.end();
+      res.writeHead(200, headers);
+      res.write(data);
+      res.end();
     });
 
-};
-
-exports.sendResponse = function(res, data, statusCode){
-  statusCode = statusCode || 200;
-  res.writeHead(statusCode, headers);
-  res.end(data);
 };
 
 exports.collectData = function(req, callback){

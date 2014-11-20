@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
 var httpRequest = require ("http-request");
+var buf = require("buffer");
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -10,7 +11,7 @@ var httpRequest = require ("http-request");
  * customize it in any way you wish.
  */
 
-exports.paths = {
+exports.paths = paths = {
   'siteAssets' : path.join(__dirname, '../web/public'),
   'archivedSites' : path.join(__dirname, '../archives/sites'),
   'list' : path.join(__dirname, '../archives/sites.txt')
@@ -26,17 +27,32 @@ exports.initialize = function(pathsObj){
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
 
+exports.urlList = urlList = {};
+
 exports.readListOfUrls = function(){
+  fs.readFile(paths.list, 'utf8', function(err, data) {
+      if (err){
+        throw new error;
+      }
+      urlList.list= data
+    });
 };
 
-exports.isUrlInList = function(){
+exports.isUrlInList = function(url){
+  if (urlList.list.indexOf(url.substring(1)) === -1) {
+    return false;
+  } else {
+    return true;
+  }
 };
 
 exports.addUrlToList = function(){
+
 };
 
 exports.isURLArchived = function(){
 };
 
 exports.downloadUrls = function(){
+
 };
