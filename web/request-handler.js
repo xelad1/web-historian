@@ -1,4 +1,5 @@
 var path = require('path');
+var url = require('url');
 var archive = require('../helpers/archive-helpers');
 var _ = require("underscore");
 var httpRequest = require ("http-request");
@@ -11,7 +12,9 @@ var fs = require("fs");
       if(req.url === '/') {
         var indexPath = archive.paths.siteAssets +"/index.html";
         var contents = httpHelp.serveAssets(res, indexPath, fs.readFile);
-      };
+      } else if (fs.exists(path.join(archive.archivedSites, req.url))) {
+        console.log(hi);
+      }
         // httpHelp.serveAssets(res, asset, callback)
       // check if there is a url being requested, or just root
       // if just root,
