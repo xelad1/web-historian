@@ -38,6 +38,7 @@ describe("Node Server Request Listener Function", function() {
   });
 
   it("Should answer GET requests for archived websites", function(done) {
+    fs.writeFileSync(archive.paths.list,"www.google.com")
     var fixtureName = "www.google.com";
     var req = new stubs.Request("/www.google.com", "GET");
     handler.handleRequest(req, res);

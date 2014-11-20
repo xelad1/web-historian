@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
 var httpRequest = require ("http-request");
+var buf = require("buffer");
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -29,23 +30,29 @@ exports.initialize = function(pathsObj){
 exports.urlList = urlList = {};
 
 exports.readListOfUrls = function(){
-  fs.readFile(paths.list, function(err, data) {
+  fs.readFile(paths.list, 'utf8', function(err, data) {
       if (err){
         throw new error;
       }
-      urlList['list'] = JSON.parse(data);
+      urlList.list= data
     });
 };
 
 exports.isUrlInList = function(url){
-  return urlList['list'].indexOf(url) === -1 ? false : true;
+  if (urlList.list.indexOf(url.substring(1)) === -1) {
+    return false;
+  } else {
+    return true;
+  }
 };
 
 exports.addUrlToList = function(){
+
 };
 
 exports.isURLArchived = function(){
 };
 
 exports.downloadUrls = function(){
+
 };
