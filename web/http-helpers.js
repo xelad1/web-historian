@@ -26,6 +26,7 @@ exports.serveAssets = function(res, asset, callback) {
   };
 
    var ext = path.extname(asset);
+
    headers["Content-Type"] = validExtensions[ext] || validExtensions[".html"]
 
     callback(asset, function(err, data) {

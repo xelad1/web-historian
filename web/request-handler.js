@@ -20,10 +20,13 @@ var js = require('jquery')(require("jsdom").jsdom().parentWindow);
         var localPath = archive.paths.siteAssets + '/styles.css';
         httpHelp.serveAssets(res, localPath, fs.readFile);
       } else {
-        localPath = archive.paths.archivedSites +  req.url;
+        req.url = '/' + req.url.substring(6);
+        localPath = archive.paths.archivedSites  + req.url;
         if(archive.isUrlInList(req.url)) {
           httpHelp.serveAssets(res, localPath, fs.readFile);
         } else {
+          // check if valid website, if so post
+          // else see below
           res.writeHead(404, headers);
           res.end();
         }
